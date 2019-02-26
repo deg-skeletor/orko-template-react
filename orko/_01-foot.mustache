@@ -1,0 +1,49 @@
+        <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+        <script>
+            function supportsDynamicImports() {
+                try {
+                    new Function('import("")');
+                    return true;
+                } catch (err) {
+                    return false;
+                }
+            }
+            function createScriptEl(scriptProps, loadCallback) {
+                var scrpt = document.createElement('script');
+                if (scriptProps.type) {
+                    scrpt.type = scriptProps.type;
+                }
+                if (scriptProps.src) {
+                    scrpt.src = scriptProps.src;
+                }
+                if (scriptProps.innerContent) {
+                    scrpt.innerHTML = scriptProps.innerContent;
+                }
+                if (loadCallback) {
+                    scrpt.addEventListener('load', loadCallback);
+                }
+                document.getElementsByTagName('head')[0].appendChild(scrpt);
+            }
+            if (supportsDynamicImports()) {
+                createScriptEl({
+                    type: 'module',
+                    src: '../../js/main.js'
+                });
+            } else {
+                createScriptEl({
+                    type: 'text/javascript',
+                    src: '../../js/vendor/s.min.js'
+                }, function() {
+                    createScriptEl({
+                        innerContent: 'System.import("/js/nomodule/main.js");'
+                    });
+                });
+            }
+        </script>
+
+        <!-- Begin Pattern Lab JS -->
+        {{{ patternLabFoot }}}
+        <!-- End Pattern Lab JS -->
+        
+    </body>
+</html>
