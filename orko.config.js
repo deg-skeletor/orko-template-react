@@ -20,12 +20,12 @@ module.exports = {
                 dest: '/source/_meta/_01-foot.mustache'
             },
             {
-                src: '/orko/global.css',
-                dest: '/source/css/global.css'
+                src: '/orko/index.js',
+                dest: '/source/js/index.js'
             },
             {
-                src: '/orko/main.js',
-                dest: '/source/js/main.js'
+                src: '/orko/index.html',
+                dest: '/source/html/index.html'
             }
         ]
     }

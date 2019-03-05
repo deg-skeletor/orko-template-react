@@ -28,6 +28,17 @@ module.exports = {
 						]
 					},
 					{
+						name: 'html',
+						paths: 'source/html/**/*.html',
+						events: ['add', 'change', 'delete'],
+						tasks: [
+							{
+								name: 'build',
+								subTasks: ['html']
+							}
+						]
+					},
+					{
 						name: 'patterns',
 						paths: ['source/_patterns/**/*','source/_data/**/*','source/_meta/**/*','source/_annotations/**/*'],
 						events: ['add', 'change', 'delete'],
