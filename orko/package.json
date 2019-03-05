@@ -7,8 +7,8 @@
     "license": "{{license}}",
     "devDependencies": {
         "@babel/core": "^7.1.6",
-        "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-        "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+        "@babel/plugin-proposal-class-properties": "^7.1.0",
+        "@babel/plugin-transform-react-jsx": "^7.0.0",
         "@babel/preset-env": "^7.1.6",
         "@deg-skeletor/core": "^1.0.0",
         "@deg-skeletor/plugin-copy": "^1.0.2",
@@ -36,7 +36,8 @@
         "styleguidekit-mustache-default": "^3.1.0"
     },
     "dependencies": {
-        "systemjs": "^2.1.2",
-        "@degjs/module-loader": "^5.1.0"
+        "classnames": "^2.2.6",
+        "react": "^16.8.3",
+        "react-dom": "^16.8.3"
     }
 }

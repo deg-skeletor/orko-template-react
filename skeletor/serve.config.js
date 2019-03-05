@@ -8,6 +8,10 @@ module.exports = {
 				entryPoints: [
 					{
 						entry: '../patternlab',
+						route: '/patternlab'
+					},
+					{
+						entry: '../app',
 						route: '/'
 					}
 				],

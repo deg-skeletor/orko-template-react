@@ -22,16 +22,12 @@ const modernBabelPresets = [
 
 module.exports = {
     input: [
-        'source/js/main.js'
+        'source/js/index.js'
     ],
     output: (destPath, isModern = true) => [
         {
-            dir: destPath,
-            format: 'es'
-        },
-        {
             dir: isModern ? destPath : path.join(destPath, 'nomodule'),
-            format: isModern ? 'es' : 'system'
+            format: isModern ? "es" : "iife"
         }
     ],
     plugins: (isModern = true) => [
@@ -45,16 +41,31 @@ module.exports = {
                 'node_modules/@degjs/**'
             ],
             babelrc: false,
-            presets: isModern ? modernBabelPresets : legacyBabelPresets,
             plugins: [
-                '@babel/plugin-syntax-dynamic-import'
+                "@babel/plugin-transform-react-jsx", 
+		        "@babel/plugin-proposal-class-properties"
             ],
+            presets: isModern ? modernBabelPresets : legacyBabelPresets
         }),
         require('rollup-plugin-node-resolve')({
             browser: true
         }),
         require('rollup-plugin-commonjs')({
-            include: 'node_modules/**'
+            include: 'node_modules/**',
+            namedExports: {
+                'node_modules/react/index.js': [
+                    'Component', 
+                    'PureComponent', 
+                    'Fragment', 
+                    'Children', 
+                    'createElement', 
+                    'cloneElement', 
+                    'createContext'
+                ],
+                'node_modules/react-dom/index.js': [
+                    'render'
+                ]
+            }
         })
     ]
 };

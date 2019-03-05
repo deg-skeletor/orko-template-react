@@ -9,6 +9,7 @@ module.exports = {
 			config: {
 				files: [
 					...files('patternlab/css/'),
+					...files('app/css/'),
 					{
 						src: path.resolve('source/css/styleguide.css'),
 						dest: path.resolve('patternlab/css/styleguide.css')

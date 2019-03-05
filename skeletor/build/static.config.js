@@ -6,10 +6,16 @@ module.exports = {
 		{
 			name: '@deg-skeletor/plugin-copy',
 			config: {
-				directories: directories({
-					imagesDestPath: 'patternlab/images',
-					fontsDestPath: 'patternlab/fonts'
-				})
+				directories: [
+					...directories({
+						imagesDestPath: 'patternlab/images',
+						fontsDestPath: 'patternlab/fonts'
+					}),
+					...directories({
+						imagesDestPath: 'app/images',
+						fontsDestPath: 'app/fonts'
+					})
+				]
 			}
 		}
 	]
