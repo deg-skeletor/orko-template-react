@@ -1,5 +1,9 @@
 const path = require('path');
 
+const rollupInputFiles = [
+    'source/js/index.js'
+];
+
 const legacyBabelPresets = [
     [
         '@babel/preset-env',
@@ -20,17 +24,17 @@ const modernBabelPresets = [
     ]
 ];
 
-module.exports = {
-    input: [
-        'source/js/index.js'
-    ],
-    output: (destPath, isModern = true) => [
+function rollupOutput(destPath, isModern) {
+    return [
         {
             dir: isModern ? destPath : path.join(destPath, 'nomodule'),
-            format: isModern ? "es" : "iife"
+            format: isModern ? "es" : "system"
         }
-    ],
-    plugins: (isModern = true) => [
+    ];
+}
+
+function rollupPlugins(isModern, minify) {
+    const plugins = [
         require('rollup-plugin-replace')({
             ENVIRONMENT: () => JSON.stringify(process.env.NODE_ENV || 'development'),
             'process.env.NODE_ENV': () => JSON.stringify(process.env.NODE_ENV || 'development')
@@ -67,5 +71,38 @@ module.exports = {
                 ]
             }
         })
-    ]
+    ];
+
+    if(minify) {
+        plugins.push(require('rollup-plugin-terser').terser());
+    }
+
+    return plugins;
+}
+
+module.exports = {
+    rollupConfig: function(destPath, minify = false) {
+        return [
+            {
+                input: rollupInputFiles,
+                output: rollupOutput(destPath, true),
+                plugins: rollupPlugins(true, minify),
+                experimentalCodeSplitting: true
+            },
+            {
+                input: rollupInputFiles,
+                output: rollupOutput(destPath, false),
+                plugins: rollupPlugins(false, minify),
+                experimentalCodeSplitting: true
+            }
+        ]
+    },
+    copyConfig: function(destPath) {
+        return {
+            directories: [{
+                src: 'node_modules/systemjs/dist/s.min.js',
+                dest: path.join(destPath, '/systemjs')
+            }]
+        };
+    }
 };
