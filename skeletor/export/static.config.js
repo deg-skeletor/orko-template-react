@@ -10,7 +10,7 @@ module.exports = {
                 directories: directories({
 					imagesDestPath: `${outputDir}/images/`,
 					fontsDestPath: `${outputDir}/fonts/`
-				})
+				}, true)
             }
         }
     ]
